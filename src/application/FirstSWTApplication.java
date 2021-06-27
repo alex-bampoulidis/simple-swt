@@ -26,7 +26,7 @@ public class FirstSWTApplication {
 		DrawButton drawButton = new DrawButton(shell, SWT.PUSH);
 
 		CancelButton cancelButton = new CancelButton(shell, SWT.PUSH);
-
+		
 		Events.addEvents(drawingCanvas, drawButton, cancelButton);
 
 		shell.open();
