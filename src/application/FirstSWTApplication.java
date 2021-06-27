@@ -1,27 +1,48 @@
 package application;
 
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 
+import application.widgets.CancelButton;
+import application.widgets.DrawButton;
+import application.widgets.DrawingCanvas;
+import objects.Draw;
+
 public class FirstSWTApplication {
 
-    public static void main(String[] args) {
-        Display display = new Display();
+	private static Draw draw = new Draw();
 
-        Shell shell = new Shell(display);
+	public static void main(String[] args) {
+		Display display = new Display();
 
-        // the layout manager handle the layout
-        // of the widgets in the container
-        shell.setLayout(new FillLayout());
+		Shell shell = new Shell(display);
+		shell.setLayout(new FillLayout());
+		shell.setText("Simple SWT app");
 
-        //TODO add some widgets to the Shell
-        shell.open();
-        while (!shell.isDisposed()) {
-            if (!display.readAndDispatch()) {
-                display.sleep();
-            }
-        }
-        display.dispose();
-    }
+		DrawingCanvas drawingCanvas = new DrawingCanvas(shell, SWT.NONE);
+
+		DrawButton drawButton = new DrawButton(shell, SWT.PUSH);
+
+		CancelButton cancelButton = new CancelButton(shell, SWT.PUSH);
+
+		Events.addEvents(drawingCanvas, drawButton, cancelButton);
+
+		shell.open();
+		while (!shell.isDisposed()) {
+			if (!display.readAndDispatch()) {
+				display.sleep();
+			}
+		}
+		display.dispose();
+	}
+
+	public static Draw getDraw() {
+		return draw;
+	}
+
+	public static void resetDraw() {
+		draw = new Draw();
+	}
 }
